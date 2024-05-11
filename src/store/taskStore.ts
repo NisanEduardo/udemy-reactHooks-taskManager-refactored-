@@ -8,10 +8,13 @@ type TaskProps = {
 
 type States = {
   task: TaskProps;
+  tasksStoraged: TaskProps[] | never[]
 };
 
 type Actions = {
   setTask: (task: TaskProps) => void;
+  setTasksStoraged: (task: TaskProps) => void
+  setClearTasks: () => void
 };
 
 export const useTaskStore = create<States & Actions>((set) => ({
@@ -24,4 +27,17 @@ export const useTaskStore = create<States & Actions>((set) => ({
     set(() => ({
       task: task,
     })),
+  tasksStoraged: [],
+  setTasksStoraged: (task: TaskProps) =>
+    set((state) => ({
+      tasksStoraged: [
+        ...state.tasksStoraged,
+        task
+      ]
+    })),
+  setClearTasks: () => set(() => (
+    {
+      tasksStoraged: []
+    }
+  ))
 }));

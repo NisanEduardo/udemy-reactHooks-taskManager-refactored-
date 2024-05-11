@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { useTaskStore } from "../../store/taskStore";
+import { ActionButtom } from "../../Atoms/ActionButtom";
 
 export const CreateTask = () => {
   const [taskName, setTaskName] = useState<String | any>("");
 
-  const { task, setTask } = useTaskStore();
+  const { task, tasksStoraged, setTask, setTasksStoraged, setClearTasks } =
+    useTaskStore();
 
   function handleTaskInput(event: React.FormEvent<HTMLInputElement>) {
     setTaskName(event.currentTarget.value);
@@ -22,8 +24,16 @@ export const CreateTask = () => {
   }
 
   useEffect(() => {
-    console.log(task);
+    setTasksStoraged(task);
   }, [task]);
+
+  useEffect(() => {
+    console.log({
+      task,
+      tasksStoraged,
+    });
+    localStorage.setItem("tasksDB", JSON.stringify(tasksStoraged));
+  }, [tasksStoraged]);
 
   return (
     <div className="">
@@ -45,11 +55,20 @@ export const CreateTask = () => {
             onChange={handleTaskInput}
             required
           />
-          <button type="submit">Cadastrar</button>
+          <ActionButtom
+            type="submit"
+            classes="bg-green-600 border-green-700 hover:bg-green-700"
+            text="Cadastrar"
+          />
         </form>
-
-        {/* <button onClick={handleClearTasks}>Limpar Tarefas</button> */}
       </section>
+      <footer className="p-5 text-right">
+        <ActionButtom
+          classes="hover:bg-red-600 bg-red-500 border-red-600"
+          fn={setClearTasks}
+          text="Limpar lista de tarefas"
+        />
+      </footer>
       {/* <TaskStatusModal showModal={showModal} /> */}
     </div>
   );
