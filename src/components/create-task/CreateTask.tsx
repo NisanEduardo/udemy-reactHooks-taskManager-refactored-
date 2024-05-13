@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { TaskModel } from "../../models/taskModel.model";
+
 import { useTaskStore } from "../../store/taskStore";
 import { ActionButtom } from "../../Atoms/ActionButtom";
 
@@ -9,6 +11,8 @@ export const CreateTask = () => {
   const { task, tasksStoraged, setTask, setTasksStoraged, setClearTasks } =
     useTaskStore();
 
+  const taskModel = new TaskModel(new Date(), taskName, false);
+
   function handleTaskInput(event: React.FormEvent<HTMLInputElement>) {
     setTaskName(event.currentTarget.value);
   }
@@ -16,22 +20,16 @@ export const CreateTask = () => {
   function createTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    setTask({
-      id: new Date(),
-      name: taskName,
-      completed: false,
-    });
+    setTask(taskModel.create());
   }
 
   useEffect(() => {
     setTasksStoraged(task);
+
+    setTaskName("");
   }, [task]);
 
   useEffect(() => {
-    console.log({
-      task,
-      tasksStoraged,
-    });
     localStorage.setItem("tasksDB", JSON.stringify(tasksStoraged));
   }, [tasksStoraged]);
 
