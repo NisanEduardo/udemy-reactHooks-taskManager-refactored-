@@ -4,7 +4,7 @@ import { TaskModel } from "../../models/taskModel.model";
 
 import { useTaskStore } from "../../store/taskStore";
 import { ActionButtom } from "../../Atoms/ActionButtom";
-import { TaskStatusModal } from "../../olecules/TaskStatusModal";
+import { TaskStatusModal } from "../../Molecules/TaskStatusModal";
 
 export const CreateTask = () => {
   const [taskName, setTaskName] = useState<String | any>("");
