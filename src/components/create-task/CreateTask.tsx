@@ -4,9 +4,11 @@ import { TaskModel } from "../../models/taskModel.model";
 
 import { useTaskStore } from "../../store/taskStore";
 import { ActionButtom } from "../../Atoms/ActionButtom";
+import { TaskStatusModal } from "../../olecules/TaskStatusModal";
 
 export const CreateTask = () => {
   const [taskName, setTaskName] = useState<String | any>("");
+  const [showModal, setShowModal] = useState(false);
 
   const { task, tasksStoraged, setTask, setTasksStoraged, setClearTasks } =
     useTaskStore();
@@ -21,6 +23,7 @@ export const CreateTask = () => {
     event.preventDefault();
 
     setTask(taskModel.create());
+    setShowModal(true);
   }
 
   useEffect(() => {
@@ -67,7 +70,7 @@ export const CreateTask = () => {
           text="Limpar lista de tarefas"
         />
       </footer>
-      {/* <TaskStatusModal showModal={showModal} /> */}
+      <TaskStatusModal showModal={showModal} />
     </div>
   );
 };
