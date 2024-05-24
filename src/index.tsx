@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { CreateTask } from "./components/create-task";
+import { TasksList } from "./components/tasks-list";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -21,10 +22,10 @@ const router = createBrowserRouter([
     path: "create",
     element: <CreateTask />,
   },
-  // {
-  //   path: "list",
-  //   element: <ListTasks />,
-  // },
+  {
+    path: "list",
+    element: <TasksList />,
+  },
   // {
   //   path: "update/:taskId",
   //   element: <UpdateTask />,

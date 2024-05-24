@@ -1,28 +1,24 @@
 import { create } from "zustand";
 
-type TaskProps = {
+export type TaskProps = {
   id: Date;
   name: string;
   completed: boolean;
 };
 
 type States = {
-  task: TaskProps;
-  tasksStoraged: TaskProps[] | never[]
+  task: TaskProps | null;
+  tasksStoraged: TaskProps[] | never[];
 };
 
 type Actions = {
   setTask: (task: TaskProps) => void;
-  setTasksStoraged: (task: TaskProps) => void
-  setClearTasks: () => void
+  setTasksStoraged: (task: TaskProps) => void;
+  setClearTasks: () => void;
 };
 
 export const useTaskStore = create<States & Actions>((set) => ({
-  task: {
-    id: new Date(),
-    name: "",
-    completed: false,
-  },
+  task: null,
   setTask: (task: TaskProps) =>
     set(() => ({
       task: task,
@@ -30,14 +26,10 @@ export const useTaskStore = create<States & Actions>((set) => ({
   tasksStoraged: [],
   setTasksStoraged: (task: TaskProps) =>
     set((state) => ({
-      tasksStoraged: [
-        ...state.tasksStoraged,
-        task
-      ]
+      tasksStoraged: [...state.tasksStoraged, task],
     })),
-  setClearTasks: () => set(() => (
-    {
-      tasksStoraged: []
-    }
-  ))
+  setClearTasks: () =>
+    set(() => ({
+      tasksStoraged: [],
+    })),
 }));

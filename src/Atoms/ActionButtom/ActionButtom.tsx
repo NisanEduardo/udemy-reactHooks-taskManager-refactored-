@@ -1,7 +1,10 @@
+import { ReactElement, ReactNode } from "react";
+
 interface IActionButton {
   classes: string;
   text: string;
   type?: "button" | "reset" | "submit" | undefined;
+  children?: ReactNode;
   fn?: () => void;
 }
 
@@ -9,6 +12,7 @@ export const ActionButtom = ({
   classes,
   text,
   type = "button",
+  children,
   fn,
 }: IActionButton) => {
   return (
@@ -17,7 +21,7 @@ export const ActionButtom = ({
       className={`text-white rounded py-2 px-4 border transition-all ${classes}`}
       onClick={fn}
     >
-      {text}
+      {children ? children : text}
     </button>
   );
 };
